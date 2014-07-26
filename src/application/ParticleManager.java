@@ -26,19 +26,22 @@ public class ParticleManager {
 		particles.add(ParticleGenerator.randomParticle(spawnFieldWidth, spawnFieldHeight, 10, 20));
 	}
 	public void addParticle(Particle p) {
+		if (particles.size() == 100) {
+			p.trackName = "boo";
+		}
 		particles.add(p);
 	}
-	public void addHistoryParticle(int index, int total) {
-//		System.out.println("spawnFieldWidth: " + spawnFieldWidth);
-//		System.out.println("index: " + index);
-//		System.out.println("total: " + total);
-		double perc = (double)index / (double)total;
-		//System.out.println("perc: " + perc);
-		double xc = perc * spawnFieldWidth;
-		//System.out.println("xc: " + xc);
-		Particle p = new Particle(spawnFieldWidth/2,spawnFieldHeight,xc,100, spawnFieldWidth,spawnFieldHeight,ColorMaker.makeRandomRGBColor(),10,20);
-		particles.add(p);
-	}
+//	public void addHistoryParticle(int index, int total) {
+////		System.out.println("spawnFieldWidth: " + spawnFieldWidth);
+////		System.out.println("index: " + index);
+////		System.out.println("total: " + total);
+//		double perc = (double)index / (double)total;
+//		//System.out.println("perc: " + perc);
+//		double xc = perc * spawnFieldWidth;
+//		//System.out.println("xc: " + xc);
+//		Particle p = new Particle(spawnFieldWidth/2,spawnFieldHeight,xc,100, spawnFieldWidth,spawnFieldHeight,ColorMaker.makeRandomRGBColor(),10,20);
+//		particles.add(p);
+//	}
 
 	public List<Particle> updateAllParticles(int currentScreenWidth, int currentScreenHeight, boolean detectCollision) {
 		if (currentScreenHeight > screenHeight) {

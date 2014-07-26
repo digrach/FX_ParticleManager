@@ -21,13 +21,23 @@ public class HistoryBlobManager {
 		particleManager = new ParticleManager(spawnFieldWidth,spawnFieldHeight,spawnFieldWidth,spawnFieldHeight);
 		readFromFile();
 	}
-	
 	public void addHistoryParticle() {
-		//double perc = (double)hbList.get(count).get / (double)total;
+//		double perc = (double)hbList.get(count).get / (double)total;
 //		double perc = (double)index / (double)total;
+//		double perc = (double)count / (double)total;
+		
+		double perc = (double)count / (double)hbList.size();
+
+		System.out.println("count: " + count);
+		System.out.println("perc: " + perc);
+
 		double xc = perc * spawnFieldWidth;
-		Particle p = new Particle(spawnFieldWidth/2,spawnFieldHeight,xc,100, spawnFieldWidth,spawnFieldHeight,ColorMaker.makeRandomRGBColor(),10,20);
+		double xy = 100;
+		
+		Particle p = new Particle(spawnFieldWidth/2,spawnFieldHeight,xc,xy, 
+				spawnFieldWidth,spawnFieldHeight,ColorMaker.makeRandomRGBColor(),10,20);
 		particleManager.addParticle(p);
+		
 		//particleManager.addHistoryParticle(count, hbList.size());
 		count ++;
 	}

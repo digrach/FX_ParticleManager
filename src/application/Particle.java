@@ -22,6 +22,9 @@ public class Particle {
 	private double initialSize;
 	private boolean finishedCycle;
 
+	public String trackName = "";
+
+
 	public Particle(double posx, double posy, double targetx, double targety, 
 			double spawnFieldWidth, double spawnFieldHeight, 
 			float[] rbgColor, int size, int maxCollisionSize) {
@@ -51,32 +54,21 @@ public class Particle {
 
 	private void update() {
 
-		double floorx = Math.floor(posX + 0.5);
-		double floory = Math.floor(posY + 0.5);
+		//		double floorPosX = Math.floor(posX + 0.5);
+		//		double floorPosY = Math.floor(posY + 0.5);
 
-//		// If particle has reached the target.
-//		if (floorx >= targetX && floory >= targetY){
-//			hasReachedTarget = true;
-//			originY = targetY;
-//			// Reset target
-//			targetY = spawnFieldHeight;
-//			travelRate = 0.01;
-//			onWayDown = true;
-//			initialSize = getSize();
-//		}
-
-
-				// If particle has reached the target.
-				if (floorx >= targetX && floory == targetY){
-					System.out.println("has reached TRUE");
-					hasReachedTarget = true;
-					originY = targetY;
-					// Reset target
-					targetY = spawnFieldHeight;
-					travelRate = 0.01;
-					onWayDown = true;
-					initialSize = getSize();
-				}
+		if (onWayDown == false) {
+			if (posX >= (targetX - 1.0) && posX <= (targetX + 1.0)) {
+				hasReachedTarget = true;
+				// store origin.
+				originY = targetY;
+				// Reset target.
+				targetY = spawnFieldHeight;
+				travelRate = 0.01;
+				onWayDown = true;
+				initialSize = getSize();
+			}
+		}
 
 		posX += calculateXDistance(targetX) * (travelRate);
 		posY += calculateYDistance(targetY) * (travelRate + randomEase);
@@ -88,10 +80,23 @@ public class Particle {
 			double ratio = (1.0 / (span  * 1.0)) * currenty;
 			size = initialSize * (1.0 - ratio);
 
+			if (trackName.equals("boo")) {
+				System.out.println("\nspan: " + span);
+				System.out.println("ratio: " + ratio);
+				System.out.println("currenty: " + currenty);
+				System.out.println("posY: " + posY);
+				System.out.println("originY: " + originY);
+				System.out.println("targetY: " + targetY);
+				System.out.println("size: " + size);
+			}
+
 			if (posY > (spawnFieldHeight - 2)) {
+				System.out.println("posy: " + posY + " spawnFieldHeight: " + spawnFieldHeight);
 				finishedCycle = true;
 			}
 		}
+
+
 	}
 
 	private void resetTarget(double spawnFieldWidth, double spawnFieldHeight) {
