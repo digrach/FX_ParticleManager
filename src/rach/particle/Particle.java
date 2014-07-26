@@ -1,4 +1,4 @@
-package application;
+package rach.particle;
 
 public class Particle {
 

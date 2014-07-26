@@ -7,11 +7,13 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 
 
 public class Main extends Application {
 	private BorderPane root;
 	private Scene scene;
+	private VBox vb;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -27,18 +29,16 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
-
 	public static void main(String[] args) {
 		launch(args);
 	}
-
 	public void addComponentsToStage() {
-		addParticleCanvasLauncher();
-		addHistoryBlobCanvasLauncher();
+		vb = new VBox();
+		vb.getChildren().add(addParticleCanvasLauncher());
+		vb.getChildren().add(addHistoryBlobCanvasLauncher());
+		root.setTop(vb);
 	}
-	
-
-	private void addParticleCanvasLauncher() {
+	private Button addParticleCanvasLauncher() {
 		Button button = new Button();
 		button.setText("Particle Canvas");
 		button.setOnAction(new EventHandler<ActionEvent>() {
@@ -48,9 +48,9 @@ public class Main extends Application {
 				s.show();
 			}
 		});
-		root.setCenter(button);
+		return button;
 	}
-	private void addHistoryBlobCanvasLauncher() {
+	private Button addHistoryBlobCanvasLauncher() {
 		Button button = new Button();
 		button.setText("History Blob Canvas");
 		button.setOnAction(new EventHandler<ActionEvent>() {
@@ -60,6 +60,6 @@ public class Main extends Application {
 				hbc.show();
 			}
 		});
-		root.setCenter(button);
+		return button;
 	}
 }

@@ -1,4 +1,4 @@
-package application;
+package rach.particle;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -22,29 +22,12 @@ public class HistoryBlobManager {
 		readFromFile();
 	}
 	public void addHistoryParticle() {
-//		double perc = (double)hbList.get(count).get / (double)total;
-//		double perc = (double)index / (double)total;
-//		double perc = (double)count / (double)total;
-		
-		double perc = (double)count / (double)hbList.size();
-
-		System.out.println("count: " + count);
-		System.out.println("perc: " + perc);
-
-		double xc = perc * spawnFieldWidth;
-		double xy = 100;
-		
-		Particle p = new Particle(spawnFieldWidth/2,spawnFieldHeight,xc,xy, 
-				spawnFieldWidth,spawnFieldHeight,ColorMaker.makeRandomRGBColor(),10,20);
-		particleManager.addParticle(p);
-		
-		//particleManager.addHistoryParticle(count, hbList.size());
+		particleManager.addParticle(ParticleGenerator.historyParticle(count, hbList.size(), spawnFieldWidth, spawnFieldHeight));
 		count ++;
 	}
 	public List<Particle> updateAllParticles() {
 		return particleManager.updateAllParticles(spawnFieldWidth, spawnFieldHeight, false);
 	}
-
 	public void printYears() {
 		for (HistoryBlob hb : hbList) {
 			System.out.println(hb.getYear() + " " + hb.getMonth() + " " + hb.getDayOfMonth() + " " + hb.getHour() + " " + hb.getMinute() + " " + hb.getUrl());

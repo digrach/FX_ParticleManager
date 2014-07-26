@@ -3,6 +3,9 @@
 package application;
 
 import java.util.List;
+
+import rach.particle.HistoryBlobManager;
+import rach.particle.Particle;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;

@@ -1,4 +1,4 @@
-package application;
+package rach.particle;
 
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class ParticleManager {
 		this.screenWidth = screenWidth;
 		this.screenHeight = screenHeight;
 	}
-
+	// Random
 	public void addParticle() {
 		particles.add(ParticleGenerator.randomParticle(spawnFieldWidth, spawnFieldHeight, 10, 20));
 	}
@@ -31,18 +31,6 @@ public class ParticleManager {
 		}
 		particles.add(p);
 	}
-//	public void addHistoryParticle(int index, int total) {
-////		System.out.println("spawnFieldWidth: " + spawnFieldWidth);
-////		System.out.println("index: " + index);
-////		System.out.println("total: " + total);
-//		double perc = (double)index / (double)total;
-//		//System.out.println("perc: " + perc);
-//		double xc = perc * spawnFieldWidth;
-//		//System.out.println("xc: " + xc);
-//		Particle p = new Particle(spawnFieldWidth/2,spawnFieldHeight,xc,100, spawnFieldWidth,spawnFieldHeight,ColorMaker.makeRandomRGBColor(),10,20);
-//		particles.add(p);
-//	}
-
 	public List<Particle> updateAllParticles(int currentScreenWidth, int currentScreenHeight, boolean detectCollision) {
 		if (currentScreenHeight > screenHeight) {
 			this.screenHeight = currentScreenHeight;

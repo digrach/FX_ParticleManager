@@ -1,4 +1,4 @@
-package application;
+package rach.utility;
 
 public class ColorMaker {
 	

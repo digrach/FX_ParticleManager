@@ -19,6 +19,8 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import rach.particle.Particle;
+
 public class CollisionTest {
 
 	@Test
