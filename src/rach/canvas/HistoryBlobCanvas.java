@@ -1,8 +1,12 @@
 // Rachael Colley 2014
 
-package application;
+package rach.canvas;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import rach.particle.HistoryBlobManager;
 import rach.particle.Particle;
@@ -14,9 +18,10 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.*;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class HistoryBlobCanvas extends Stage {
+public class HistoryBlobCanvas extends Stage implements PropertyChangeListener {
 
 	private final String STAGE_TITLE = "History Blob Stage";
 	private final double SCENE_WIDTH = 800;
@@ -37,22 +42,21 @@ public class HistoryBlobCanvas extends Stage {
 	private HistoryBlobManager hbm;
 
 
+
 	public HistoryBlobCanvas() {
-
-		hbm = new HistoryBlobManager((int)SCENE_WIDTH,(int)SCENE_HEIGHT);
-
+		hbm = new HistoryBlobManager((int)SCENE_WIDTH,(int)SCENE_HEIGHT,0);
+		hbm.addChangeListener(this);
 		initialiseMyStage();
 		graphicsContext = canvas.getGraphicsContext2D();
 		timer = new AnimationTimer() {
-
 			long timeToStop = 0;
 			@Override
 			public void handle(long now) {
-//				if (timeToStop == 0) {
-//					timeToStop = now + 100000;
-//				}
-//				if (now > timeToStop) return;
-				
+				//				if (timeToStop == 0) {
+				//					timeToStop = now + 100000;
+				//				}
+				//				if (now > timeToStop) return;
+
 				graphicsContext.setFill(Color.rgb(0, 0, 0, 0.2));
 				graphicsContext.fillRect(0, 0, SCENE_WIDTH, SCENE_HEIGHT);
 
@@ -96,15 +100,31 @@ public class HistoryBlobCanvas extends Stage {
 
 	private void drawHistoryBlobs() {
 		particles = hbm.updateAllParticles();
+		int count = 0;
 		for (Particle p : particles) {
+			
+			graphicsContext.setFill(Color.BLACK);
+			graphicsContext.fillRect(90, 40, 600, 40);
+			
 			graphicsContext.setFill(Color.hsb(p.getColor()[0],p.getColor()[1],p.getColor()[2],.5));
 			graphicsContext.fillOval(p.getPosX(), p.getPosY(), p.getSize(), p.getSize());
+			
+			graphicsContext.setFont(new Font("Arial", 30));
+			graphicsContext.fillText(this.hbm.getParticleURL(count, p), 110, 70);
+			count ++;
 		}
 	}
 
 	private void print(Object value) {
 		System.out.println(value);
 	}
-	
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		if (evt.getPropertyName().equals("endOfList") && evt.getNewValue().equals("true")) {		
+			timer.stop();
+		}
+	}
+
+
 
 }

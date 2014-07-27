@@ -16,13 +16,13 @@ public class ParticleGenerator {
 		return p;
 	}
 
-	public static Particle historyParticle(int count, int total, double spawnFieldWidth, double spawnFieldHeight) {
+	public static Particle historyParticle(int count, int total, double spawnFieldWidth, double spawnFieldHeight, float color[]) {
 		Particle p = null;
 		double perc = (double)count / (double)total;
 		double xc = perc * spawnFieldWidth;
 		double xy = 100;
 		p = new Particle(spawnFieldWidth/2,spawnFieldHeight,xc,xy, 
-				spawnFieldWidth,spawnFieldHeight,ColorMaker.makeRandomRGBColor(),10,20);
+				spawnFieldWidth,spawnFieldHeight,color,10,20);
 		return p;
 	}
 

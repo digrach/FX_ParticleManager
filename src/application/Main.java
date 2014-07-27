@@ -1,5 +1,7 @@
 package application;
 	
+import rach.canvas.HistoryBlobCanvas;
+import rach.canvas.ParticleCanvas;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

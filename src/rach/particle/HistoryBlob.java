@@ -15,11 +15,13 @@ public class HistoryBlob {
 	private int hour;
 	private int minute;
 	private Particle particle;
+	private float color[];
 
-	public HistoryBlob(String url,String strDate,String strTime) {
+	public HistoryBlob(String url,String strDate,String strTime,float color[]) {
 		setUrl(url);
 		this.setStrDate(strDate);
 		this.setStrTime(strTime);
+		this.setColor(color);
 		convertToDate();
 	}
 	
@@ -120,6 +122,14 @@ public class HistoryBlob {
 
 	public void setStrDate(String strDate) {
 		this.strDate = strDate;
+	}
+
+	public float[] getColor() {
+		return color;
+	}
+
+	public void setColor(float[] color) {
+		this.color = color;
 	}
 
 

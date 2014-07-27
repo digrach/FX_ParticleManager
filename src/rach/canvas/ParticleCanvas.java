@@ -1,23 +1,16 @@
 // Rachael Colley 2014
 
-package application;
+package rach.canvas;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-
 import rach.particle.Particle;
 import rach.particle.ParticleManager;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.effect.BlendMode;
-import javafx.scene.effect.Reflection;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.*;
 import javafx.stage.Stage;
