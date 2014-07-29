@@ -41,6 +41,8 @@ public class HistoryBlobCanvas extends Stage implements PropertyChangeListener {
 	private List<Particle> particles;
 	private HistoryBlobManager hbm;
 
+	private String lastUrl = "";
+
 
 
 	public HistoryBlobCanvas() {
@@ -102,15 +104,23 @@ public class HistoryBlobCanvas extends Stage implements PropertyChangeListener {
 		particles = hbm.updateAllParticles();
 		int count = 0;
 		for (Particle p : particles) {
-			
+
 			graphicsContext.setFill(Color.BLACK);
 			graphicsContext.fillRect(90, 40, 600, 40);
+
+			Color c = Color.hsb(p.getColor()[0],p.getColor()[1],p.getColor()[2],.5);
 			
-			graphicsContext.setFill(Color.hsb(p.getColor()[0],p.getColor()[1],p.getColor()[2],.5));
+			graphicsContext.setFill(c);
 			graphicsContext.fillOval(p.getPosX(), p.getPosY(), p.getSize(), p.getSize());
-			
-			graphicsContext.setFont(new Font("Arial", 30));
-			graphicsContext.fillText(this.hbm.getParticleURL(count, p), 110, 70);
+
+			String currentUrl = hbm.getParticleURL(count, p);
+
+			if(currentUrl.equals("docs.google.com/")){
+				graphicsContext.setFill(c);
+				graphicsContext.setFont(new Font("Arial",30));
+				graphicsContext.fillText(currentUrl, 110, 70);
+			}
+
 			count ++;
 		}
 	}

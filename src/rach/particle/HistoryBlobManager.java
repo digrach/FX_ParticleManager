@@ -125,9 +125,18 @@ public class HistoryBlobManager {
 			String strTime = str.substring((timrPos + 1));
 			String strDate = str.substring(timrPos - 10,((timrPos - 10) + 10));
 			String strTD = strDate.trim() + " " + strTime.trim();
-			HistoryBlob db = new HistoryBlob(url,null,strTD,assignColor(url));
+//			HistoryBlob db = new HistoryBlob(url,null,strTD,assignColor(url));
+			String newUrl = cutHttStuff(url);
+			HistoryBlob db = new HistoryBlob(newUrl,null,strTD,assignColor(newUrl));
+
 			hbList.add(db);
 		}
+	}
+	
+	private String cutHttStuff(String s) {
+		int sc = s.lastIndexOf(":");
+		String start = s.substring(sc+3);
+		return start;
 	}
 
 	private float[] assignColor(String s) {
