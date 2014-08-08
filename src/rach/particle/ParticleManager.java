@@ -7,8 +7,8 @@ import java.util.List;
 
 public class ParticleManager {
 
-	private List<Particle> particles = new ArrayList<Particle>();
-	private List<Particle>[] checkList;
+	private List<IParticle> particles = new ArrayList<IParticle>();
+	private List<IParticle>[] checkList;
 
 	private int spawnFieldWidth;
 	private int spawnFieldHeight;
@@ -25,13 +25,10 @@ public class ParticleManager {
 	public void addParticle() {
 		particles.add(ParticleGenerator.randomParticle(spawnFieldWidth, spawnFieldHeight, 10, 20));
 	}
-	public void addParticle(Particle p) {
-		if (particles.size() == 100) {
-			p.trackName = "boo";
-		}
+	public void addParticle(IParticle p) {
 		particles.add(p);
 	}
-	public List<Particle> updateAllParticles(int currentScreenWidth, int currentScreenHeight, boolean detectCollision) {
+	public List<IParticle> updateAllParticles(int currentScreenWidth, int currentScreenHeight, boolean detectCollision) {
 		if (currentScreenHeight > screenHeight) {
 			this.screenHeight = currentScreenHeight;
 		}
@@ -50,9 +47,9 @@ public class ParticleManager {
 
 		checkList = new List[screenHeight];
 
-		Iterator<Particle> i = particles.iterator();
+		Iterator<IParticle> i = particles.iterator();
 		while (i.hasNext()) {
-			Particle p = i.next();
+			IParticle p = i.next();
 			if (p.isFinishedCycle()) {
 				i.remove();
 				continue;
@@ -61,7 +58,7 @@ public class ParticleManager {
 
 			if (detectCollision == true) {
 				if (checkList[(int)p.getPosY()] == null) {
-					checkList[(int)p.getPosY()] = new ArrayList<Particle>();
+					checkList[(int)p.getPosY()] = new ArrayList<IParticle>();
 				}
 				checkList[(int)p.getPosY()].add(p);
 			}
@@ -76,7 +73,7 @@ public class ParticleManager {
 		}
 	}
 
-	private boolean checkForColision(Particle p) {
+	private boolean checkForColision(IParticle p) {
 		boolean collision = false;
 
 		int startRowIndex = (int) (p.getPosY() - p.getMaxCollisionSize());
@@ -88,10 +85,10 @@ public class ParticleManager {
 			endRowIndex = checkList.length - 1;
 		}
 		for (int x = startRowIndex; x <= endRowIndex; x ++) {
-			List<Particle> l = checkList[x]; 
+			List<IParticle> l = checkList[x]; 
 			if (l != null) { 
 				for (int i = 0; i < l.size(); i++ ) { 
-					Particle cp = l.get(i);
+					IParticle cp = l.get(i);
 					if (p != cp) {
 
 						int xDistance;
@@ -149,19 +146,19 @@ public class ParticleManager {
 		this.screenHeight = currentScreenHeight;
 	}
 
-	public List<Particle> getParticles() {
+	public List<IParticle> getParticles() {
 		return particles;
 	}
 
-	public void setParticles(List<Particle> particles) {
+	public void setParticles(List<IParticle> particles) {
 		this.particles = particles;
 	}
 
-	public List<Particle>[] getCheckList() {
+	public List<IParticle>[] getCheckList() {
 		return checkList;
 	}
 
-	public void setCheckList(List<Particle>[] checkList) {
+	public void setCheckList(List<IParticle>[] checkList) {
 		this.checkList = checkList;
 	}
 

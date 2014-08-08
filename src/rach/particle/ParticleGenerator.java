@@ -16,16 +16,17 @@ public class ParticleGenerator {
 		return p;
 	}
 
-	public static Particle historyParticle(int count, int total, double spawnFieldWidth, double spawnFieldHeight, float color[]) {
-		Particle p = null;
+	public static IParticle historyParticle(int count, int total, double spawnFieldWidth, double spawnFieldHeight, float color[], 
+			String url, String date, String time, float[] color2) {
 		double perc = (double)count / (double)total;
 		double xc = perc * spawnFieldWidth;
 		double xy = 100;
-		p = new Particle(spawnFieldWidth/2,spawnFieldHeight,xc,xy, 
-				spawnFieldWidth,spawnFieldHeight,color,10,20);
-		return p;
-	}
 
+		IParticle hbp = new HistoryBlob(spawnFieldWidth/2,spawnFieldHeight,xc,xy, 
+				spawnFieldWidth,spawnFieldHeight,color,10,20, url, date, time, color2);
+
+		return hbp;
+	}
 	private static int makeRandomNumInRange(int min, int max) {
 		int num = 0;
 		Random r = new Random();

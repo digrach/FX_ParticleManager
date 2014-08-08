@@ -3,6 +3,8 @@
 package rach.canvas;
 
 import java.util.List;
+
+import rach.particle.IParticle;
 import rach.particle.Particle;
 import rach.particle.ParticleManager;
 import javafx.animation.AnimationTimer;
@@ -33,7 +35,7 @@ public class ParticleCanvas extends Stage {
 	private int buffer = 0;
 
 	private ParticleManager particleManager;
-	private List<Particle> particles;
+	private List<IParticle> particles;
 
 
 	public ParticleCanvas() {
@@ -99,7 +101,7 @@ public class ParticleCanvas extends Stage {
 
 	private void drawParticles() {
 		particles = particleManager.updateAllParticles((int)SCENE_WIDTH,(int)SCENE_HEIGHT,true);
-		for (Particle p : particles) {
+		for (IParticle p : particles) {
 			graphicsContext.setFill(Color.hsb(p.getColor()[0],p.getColor()[1],p.getColor()[2],.5));
 			graphicsContext.fillOval(p.getPosX(), p.getPosY(), p.getSize(), p.getSize());
 		}

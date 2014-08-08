@@ -4,12 +4,19 @@ package rach.canvas;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
+import rach.particle.HistoryBlob;
 import rach.particle.HistoryBlobManager;
+import rach.particle.IParticle;
 import rach.particle.Particle;
+import rach.particle.UrlRanker;
+import rach.particle.UrlRender;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -38,10 +45,14 @@ public class HistoryBlobCanvas extends Stage implements PropertyChangeListener {
 
 	private int buffer = 0;
 
-	private List<Particle> particles;
+	private List<IParticle> particles;
 	private HistoryBlobManager hbm;
 
 	private String lastUrl = "";
+
+	private Map<String,Integer> urlMap;
+
+	//private UrlRanker urlRanker = new UrlRanker();
 
 
 
@@ -101,30 +112,63 @@ public class HistoryBlobCanvas extends Stage implements PropertyChangeListener {
 	}
 
 	private void drawHistoryBlobs() {
-		particles = hbm.updateAllParticles();
-		int count = 0;
-		for (Particle p : particles) {
+		urlMap = new HashMap<String,Integer>();
 
-			graphicsContext.setFill(Color.BLACK);
-			graphicsContext.fillRect(90, 40, 600, 40);
+		particles = hbm.updateAllParticles();
+		for (IParticle p : particles) {
 
 			Color c = Color.hsb(p.getColor()[0],p.getColor()[1],p.getColor()[2],.5);
+
+//			graphicsContext.setFill(Color.BLACK);
+//			graphicsContext.fillRect(90, 40, SCENE_WIDTH, SCENE_HEIGHT);
+
+//			graphicsContext.setFill(c);
+//			graphicsContext.fillOval(p.getPosX(), p.getPosY(), p.getSize(), p.getSize());
+
+			String currentUrl = p.getUrl();
+			UrlRender u = hbm.getUrlCount(currentUrl);
+
+			List<String> topList = hbm.getUrlPosition(u);
+			double drawx = 110;
+			double drawy = 70;
+			for (String s : topList) {
+				graphicsContext.setFill(c);
+				graphicsContext.setFont(new Font("Arial",30));
+				graphicsContext.fillText(s, drawx, drawy);
+				drawy += 20;
+				graphicsContext.setFill(Color.rgb(0, 0, 0, 0.2));
+				graphicsContext.fillRect(0, 0, SCENE_WIDTH, SCENE_HEIGHT);
+			}
 			
 			graphicsContext.setFill(c);
 			graphicsContext.fillOval(p.getPosX(), p.getPosY(), p.getSize(), p.getSize());
 
-			String currentUrl = hbm.getParticleURL(count, p);
 
-			if(currentUrl.equals("docs.google.com/")){
-				graphicsContext.setFill(c);
-				graphicsContext.setFont(new Font("Arial",30));
-				graphicsContext.fillText(currentUrl, 110, 70);
-			}
+			//			int dispCount = 0;
+			//			if (u != null) {
+			//				dispCount = u.getCount();
+			//			}
+			//			
+			//			String displayUrl = dispCount + " " + currentUrl;
+			//			graphicsContext.setFill(c);
+			//			graphicsContext.setFont(new Font("Arial",30));
+			//			graphicsContext.fillText(displayUrl, 110, 70);
 
-			count ++;
 		}
 	}
 
+	//	public void testSort(String s, int i) {
+	//		List<String> l = new ArrayList<String>();
+	//		
+	//	}
+	//	private void checkUrlMap(String s) {
+	//		if (!urlMap.containsKey(s)) {
+	//			urlMap.put(s, 1);
+	//		} else {
+	//			int currentCount = urlMap.get(s);
+	//			urlMap.put(s, currentCount);
+	//		}
+	//	}
 	private void print(Object value) {
 		System.out.println(value);
 	}

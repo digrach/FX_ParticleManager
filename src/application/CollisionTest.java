@@ -19,7 +19,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import rach.particle.Particle;
+import rach.particle.IParticle;
 
 public class CollisionTest {
 
@@ -213,7 +213,7 @@ public class CollisionTest {
 
 	}
 
-	public boolean check(Particle pp1, Particle pp2) {
+	public boolean check(IParticle pp1, IParticle pp2) {
 
 
 

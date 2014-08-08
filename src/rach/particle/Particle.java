@@ -2,7 +2,7 @@ package rach.particle;
 
 import java.util.Arrays;
 
-public class Particle {
+public class Particle implements IParticle {
 
 	private double posY;
 	private double posX;
@@ -44,6 +44,9 @@ public class Particle {
 		travelRate = 0.03;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#update(double, double)
+	 */
 	public void update(double spawnFieldWidth, double spawnFieldHeight) {
 
 		if (spawnFieldHeight != this.spawnFieldHeight && hasReachedTarget == false) {
@@ -144,142 +147,247 @@ public class Particle {
 
 	// Get / Set
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#getPosY()
+	 */
 	public double getPosY() {
 		return posY;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#setPosY(double)
+	 */
 	public void setPosY(double posY) {
 		this.posY = posY;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#getPosX()
+	 */
 	public double getPosX() {
 		return posX;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#setPosX(double)
+	 */
 	public void setPosX(double posX) {
 		this.posX = posX;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#getTargetX()
+	 */
 	public double getTargetX() {
 		return targetX;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#setTargetX(double)
+	 */
 	public void setTargetX(double targetX) {
 		this.targetX = targetX;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#getTargetY()
+	 */
 	public double getTargetY() {
 		return targetY;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#setTargetY(double)
+	 */
 	public void setTargetY(double targetY) {
 		this.targetY = targetY;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#getSize()
+	 */
 	public double getSize() {
 		return size;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#setSize(double)
+	 */
 	public void setSize(double size) {
 		this.size = size;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#getColor()
+	 */
 	public float[] getColor() {
 		return color;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#setColor(float[])
+	 */
 	public void setColor(float[] color) {
 		this.color = color;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#getRandomEase()
+	 */
 	public double getRandomEase() {
 		return randomEase;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#setRandomEase(double)
+	 */
 	public void setRandomEase(double randomEase) {
 		this.randomEase = randomEase;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#getTravelRate()
+	 */
 	public double getTravelRate() {
 		return travelRate;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#setTravelRate(double)
+	 */
 	public void setTravelRate(double travelRate) {
 		this.travelRate = travelRate;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#getMaxCollisionSize()
+	 */
 	public int getMaxCollisionSize() {
 		return maxCollisionSize;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#setMaxCollisionSize(int)
+	 */
 	public void setMaxCollisionSize(int maxCollisionSize) {
 		this.maxCollisionSize = maxCollisionSize;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#getSpawnFieldWidth()
+	 */
 	public double getSpawnFieldWidth() {
 		return spawnFieldWidth;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#setSpawnFieldWidth(double)
+	 */
 	public void setSpawnFieldWidth(double spawnFieldWidth) {
 		this.spawnFieldWidth = spawnFieldWidth;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#getSpawnFieldHeight()
+	 */
 	public double getSpawnFieldHeight() {
 		return spawnFieldHeight;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#setSpawnFieldHeight(double)
+	 */
 	public void setSpawnFieldHeight(double spawnFieldHeight) {
 		this.spawnFieldHeight = spawnFieldHeight;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#isHasReachedTarget()
+	 */
 	public boolean isHasReachedTarget() {
 		return hasReachedTarget;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#setHasReachedTarget(boolean)
+	 */
 	public void setHasReachedTarget(boolean hasReachedTarget) {
 		this.hasReachedTarget = hasReachedTarget;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#getOriginY()
+	 */
 	public double getOriginY() {
 		return originY;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#setOriginY(double)
+	 */
 	public void setOriginY(double originY) {
 		this.originY = originY;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#isOnWayDown()
+	 */
 	public boolean isOnWayDown() {
 		return onWayDown;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#setOnWayDown(boolean)
+	 */
 	public void setOnWayDown(boolean onWayDown) {
 		this.onWayDown = onWayDown;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#getInitialSize()
+	 */
 	public double getInitialSize() {
 		return initialSize;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#setInitialSize(double)
+	 */
 	public void setInitialSize(double initialSize) {
 		this.initialSize = initialSize;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#isFinishedCycle()
+	 */
 	public boolean isFinishedCycle() {
 		return finishedCycle;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#setFinishedCycle(boolean)
+	 */
 	public void setFinishedCycle(boolean finishedCycle) {
 		this.finishedCycle = finishedCycle;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#getTrackName()
+	 */
 	public String getTrackName() {
 		return trackName;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#setTrackName(java.lang.String)
+	 */
 	public void setTrackName(String trackName) {
 		this.trackName = trackName;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -317,6 +425,9 @@ public class Particle {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see rach.particle.IParticle#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -375,6 +486,12 @@ public class Particle {
 				.doubleToLongBits(other.travelRate))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String getUrl() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

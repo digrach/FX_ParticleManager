@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
@@ -24,6 +25,10 @@ public class HistoryBlobManager {
 	private int count;
 	private Map<String,float[]> colorMap;
 	private boolean endOfList;
+	private List<IParticle> pList;
+	private Map<String,UrlRender> urlMap = new HashMap<String,UrlRender>();
+
+
 
 	private List<PropertyChangeListener> listener = new ArrayList<PropertyChangeListener>();
 
@@ -53,18 +58,46 @@ public class HistoryBlobManager {
 		colorMap = new HashMap<String,float[]>();
 		endOfList = false;
 		readFromFile();
-		
+		createParticles();
 		//writeToFile();
+		printTrackUrls();
 	}
-	public void addHistoryParticle() {
-		particleManager.addParticle(ParticleGenerator.historyParticle(
-				count, hbList.size(), spawnFieldWidth, spawnFieldHeight,hbList.get(count).getColor()));
+	public void createParticles() {
+		pList = new ArrayList<IParticle>();
+		for (int x = 0; x < hbList.size(); x++) {
+			HistoryBlob hb = hbList.get(x);
+			pList.add(ParticleGenerator.historyParticle(x, hbList.size(), spawnFieldWidth, spawnFieldHeight, 
+					hb.getColor(), hb.getUrl(), hb.getStrDate(), hb.getStrTime(), hb.getColor()));
+		}
+	}
+	public void addHistoryParticle() {	
+		IParticle currentP = pList.get(count);
+		particleManager.addParticle(currentP);
+		trackUrl(currentP.getUrl(),currentP.getColor());
 		count ++;
-		System.out.println("Count: " + count);
 		endOfList();
 	}
 
-	public String getParticleURL(int index,Particle p) {
+	public List<String> getUrlPosition(UrlRender urlRender) {
+		List<String> topList = new ArrayList<String>();
+		topList.add(0, urlRender.getUrl());
+		int currentRank = 0;
+
+		for (Map.Entry<String, UrlRender> entry : urlMap.entrySet()) {
+			String s = entry.getKey();
+			UrlRender u = entry.getValue();
+			if (urlRender.getCount() > u.getCount()) {
+				topList.add(currentRank, u.getUrl());
+				currentRank ++;
+			}
+			if (currentRank == 10) {
+				return topList;
+			}
+		}
+		return topList;
+	}
+
+	public String getParticleURL(int index,IParticle p) {
 		String s = null;
 		s = hbList.get(index).getUrl();
 		return s;
@@ -76,10 +109,8 @@ public class HistoryBlobManager {
 		try {
 			pw = new PrintWriter(f);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		for (HistoryBlob hb : hbList) {
 			pw.println(hb.getUrl() + "," + hb.getColor()[0] + "," + hb.getColor()[1] + "," + hb.getColor()[2]);
 		}
@@ -87,8 +118,9 @@ public class HistoryBlobManager {
 
 	}
 
-	public List<Particle> updateAllParticles() {
+	public List<IParticle> updateAllParticles() {
 		return particleManager.updateAllParticles(spawnFieldWidth, spawnFieldHeight, false);
+
 	}
 	public void printYears() {
 		for (HistoryBlob hb : hbList) {
@@ -125,21 +157,53 @@ public class HistoryBlobManager {
 			String strTime = str.substring((timrPos + 1));
 			String strDate = str.substring(timrPos - 10,((timrPos - 10) + 10));
 			String strTD = strDate.trim() + " " + strTime.trim();
-//			HistoryBlob db = new HistoryBlob(url,null,strTD,assignColor(url));
-			String newUrl = cutHttStuff(url);
-			HistoryBlob db = new HistoryBlob(newUrl,null,strTD,assignColor(newUrl));
-
+			String newUrl = trimUrlPrefix(url);
+			float[] col = doColorMapping(newUrl);
+			HistoryBlob db = new HistoryBlob(newUrl,null,strTD,col);
+			//trackUrl(newUrl,col);
 			hbList.add(db);
 		}
 	}
-	
-	private String cutHttStuff(String s) {
+
+	private void trackUrl(String url, float[] color) {
+		UrlRender u = urlMap.get(url);
+		if(u == null) {
+			u = new UrlRender(color,url);
+			urlMap.put(url, u);
+		} else {
+			u.incrementCount();
+		}
+	}
+
+	public UrlRender getUrlCount(String url) {
+		int c = 0;
+		UrlRender ur = urlMap.get(url);
+		if (ur != null) {
+			c = ur.getCount();
+		}
+		return ur;
+	}
+
+	private void printTrackUrls() {
+		Iterator i = urlMap.entrySet().iterator();
+		while (i.hasNext()) {
+			Map.Entry pairs = (Map.Entry)i.next();
+
+			String key = (String) pairs.getKey();
+			UrlRender val = (UrlRender) pairs.getValue();
+
+			System.out.println("key: " + key + " count: " + val.getCount());
+
+		}
+	}
+
+	private String trimUrlPrefix(String s) {
 		int sc = s.lastIndexOf(":");
 		String start = s.substring(sc+3);
 		return start;
 	}
 
-	private float[] assignColor(String s) {
+	private float[] doColorMapping(String s) {
 		float color[] = null;
 		if ((color = colorMap.get(s)) == null) {
 			colorMap.put(s, color = ColorMaker.makeRandomRGBColor());
