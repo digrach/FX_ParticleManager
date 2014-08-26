@@ -1,7 +1,11 @@
 package rach.particle;
 
 public interface IParticle {
-	
+
+	String getStrDate();
+
+	String getStrTime();
+
 	String getUrl();
 
 	void update(double spawnFieldWidth, double spawnFieldHeight);
