@@ -4,7 +4,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-public class HistoryBlob extends Particle {
+public class HistoryParticle extends Particle {
 
 	private String url;
 	private String strDate;
@@ -16,23 +16,19 @@ public class HistoryBlob extends Particle {
 	private int minute;
 	private float color[];
 
-	public HistoryBlob(double posx, double posy, double targetx, double targety, 
+	public HistoryParticle(double posx, double posy, double targetx, double targety, 
 			double spawnFieldWidth, double spawnFieldHeight, 
 			float[] rbgColor, int size, int maxCollisionSize,
 			String url,String strDate,String strTime,float color[]) {
-
 		super(posx,posy,targetx,targety,spawnFieldWidth,spawnFieldHeight,rbgColor,size,maxCollisionSize);
-
 		setUrl(url);
 		setStrDate(strDate);
 		setStrTime(strTime);
 		setColor(color);
 		//convertToDate();
 	}
-	public HistoryBlob(String url,String strDate,String strTime,float color[]) {
-
+	public HistoryParticle(String url,String strDate,String strTime,float color[]) {
 		super(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, null, 0, 0);
-
 		setUrl(url);
 		setStrDate(strDate);
 		setStrTime(strTime);
@@ -82,7 +78,7 @@ public class HistoryBlob extends Particle {
 		this.url = url;
 	}
 	public String getStrDate() {
-		System.out.println("Getting date: " + strDate);
+		//System.out.println("Getting date: " + strDate);
 		return strDate;
 	}
 	public void setStrDate(String strDate) {

@@ -1,6 +1,6 @@
 package application;
 	
-import rach.canvas.HistoryBlobCanvas;
+import rach.canvas.HistoryParticleCanvas;
 import rach.canvas.ParticleCanvas;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -58,7 +58,7 @@ public class Main extends Application {
 		button.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				final HistoryBlobCanvas hbc = new HistoryBlobCanvas();
+				final HistoryParticleCanvas hbc = new HistoryParticleCanvas();
 				hbc.show();
 			}
 		});

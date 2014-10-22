@@ -14,6 +14,8 @@ public class ParticleManager {
 	private int spawnFieldHeight;
 	private int screenWidth;
 	private int screenHeight;
+	
+	private int currentParticleCount;
 
 	public ParticleManager(int spawnFieldWidth, int spawnFieldHeight, int screenWidth, int screenHeight) {
 		this.spawnFieldWidth = spawnFieldWidth;
@@ -24,9 +26,11 @@ public class ParticleManager {
 	// Random
 	public void addParticle() {
 		particles.add(ParticleGenerator.randomParticle(spawnFieldWidth, spawnFieldHeight, 10, 20));
+		currentParticleCount ++;
 	}
 	public void addParticle(IParticle p) {
 		particles.add(p);
+		currentParticleCount ++;
 	}
 	public List<IParticle> updateAllParticles(int currentScreenWidth, int currentScreenHeight, boolean detectCollision) {
 		if (currentScreenHeight > screenHeight) {
@@ -176,6 +180,12 @@ public class ParticleManager {
 
 	public void setScreenHeight(int screenHeight) {
 		this.screenHeight = screenHeight;
+	}
+	public int getCurrentParticleCount() {
+		return currentParticleCount;
+	}
+	public void setCurrentParticleCount(int currentParticleCount) {
+		this.currentParticleCount = currentParticleCount;
 	}
 
 

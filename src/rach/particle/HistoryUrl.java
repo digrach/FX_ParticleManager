@@ -1,12 +1,12 @@
 package rach.particle;
 
-public class UrlRender implements Comparable<UrlRender> {
+public class HistoryUrl implements Comparable<HistoryUrl> {
 
 	private float[] color;
 	private String url;
 	private int count;
 
-	public UrlRender(float[] color, String url) {
+	public HistoryUrl(float[] color, String url) {
 		super();
 		this.color = color;
 		this.url = url;
@@ -35,7 +35,7 @@ public class UrlRender implements Comparable<UrlRender> {
 		this.count = count;
 	}
 	@Override
-	public int compareTo(UrlRender o) {
+	public int compareTo(HistoryUrl o) {
 		return Integer.compare(count, o.getCount());
 	}
 

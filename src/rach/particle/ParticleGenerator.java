@@ -22,7 +22,7 @@ public class ParticleGenerator {
 		double xc = perc * spawnFieldWidth;
 		double xy = 100;
 
-		IParticle hbp = new HistoryBlob(spawnFieldWidth/2,spawnFieldHeight,xc,xy, 
+		IParticle hbp = new HistoryParticle(spawnFieldWidth/2,spawnFieldHeight,xc,xy, 
 				spawnFieldWidth,spawnFieldHeight,color,10,20, url, date, time, color2);
 
 		return hbp;
