@@ -26,16 +26,12 @@ public class HistoryParticleManager {
 	private List<IParticle> particleList;
 	private Map<String,HistoryUrl> urlMap = new HashMap<String,HistoryUrl>();
 	private List<PropertyChangeListener> listener = new ArrayList<PropertyChangeListener>();
-
-	
 	
 	public HistoryParticleManager(int spawnFieldWidth, int spawnFieldHeight, int startIndex) {
 		this.setSpawnFieldWidth(spawnFieldWidth);
 		this.setSpawnFieldHeight(spawnFieldHeight);
 		historyParticleList = new ArrayList<IParticle>();
 		particleManager = new ParticleManager(spawnFieldWidth,spawnFieldHeight,spawnFieldWidth,spawnFieldHeight);
-		
-		System.out.println("START P COUNT: " + particleManager.getCurrentParticleCount());
 		colorMap = new HashMap<String,float[]>();
 		endOfList = false;
 		readFromFile();
@@ -79,6 +75,12 @@ public class HistoryParticleManager {
 			IParticle currentParticle = particleList.get(x);
 			addUrl(currentParticle.getUrl(),currentParticle.getColor()); // Has the url been added before?
 		}
+	}
+	public int getUniqueURLCount() {
+		if (urlMap != null) {
+			return urlMap.size();
+		}
+		return 0;
 	}
 	public void addHistoryParticle() {	
 		IParticle currentParticle = particleList.get(particleManager.getCurrentParticleCount());

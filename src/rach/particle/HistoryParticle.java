@@ -78,7 +78,6 @@ public class HistoryParticle extends Particle {
 		this.url = url;
 	}
 	public String getStrDate() {
-		//System.out.println("Getting date: " + strDate);
 		return strDate;
 	}
 	public void setStrDate(String strDate) {
